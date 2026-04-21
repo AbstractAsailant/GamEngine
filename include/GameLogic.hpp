@@ -8,6 +8,7 @@
 
 namespace Config {
     inline constexpr int TARGET_FPS = 60;
+    inline constexpr float physicsDeltaTime = 1.0 / (float)TARGET_FPS;
     inline constexpr int FRAME_DELAY = 1000 / TARGET_FPS;
     inline constexpr int PLAYER_WIDTH = 32;
     inline constexpr int PLAYER_HEIGHT = 32;
@@ -21,5 +22,11 @@ namespace Config {
     inline constexpr float BACKGROUND_OFFSET = 0.6f;
     inline constexpr float GROUND_OFFSET = 3.0f;
     inline constexpr float CLOUD_OFFSET = 0.4f;
+    inline constexpr float GRAVITY = 2.6f;
+    inline constexpr float JUMP_FORCE = -4.0f;
+    inline float uWorld = GROUND_OFFSET/physicsDeltaTime;
+    inline constexpr float jumpPeak = (-JUMP_FORCE/GRAVITY)*physicsDeltaTime;
+    inline constexpr float jumpTime = 2.0f*jumpPeak;
+    inline float minDistance = uWorld*jumpTime;
 }
 #endif // GAMELOGIC_HPP

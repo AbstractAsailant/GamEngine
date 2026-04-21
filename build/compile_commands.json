@@ -37,6 +37,12 @@
 },
 {
   "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/PauseMenu.cpp.o -c /home/marlboro/Desktop/GamEngine/src/PauseMenu.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/src/PauseMenu.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/PauseMenu.cpp.o"
+},
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
   "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/Player.cpp.o -c /home/marlboro/Desktop/GamEngine/src/Player.cpp",
   "file": "/home/marlboro/Desktop/GamEngine/src/Player.cpp",
   "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/Player.cpp.o"

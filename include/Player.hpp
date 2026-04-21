@@ -119,6 +119,20 @@ public:
 
     void handleInput(SDL_Event& E);
 
+    void setInvis(bool isInvis){
+        this->isInvis = isInvis;
+    }
+
+    bool getInvis(){
+        return isInvis;
+    }
+    void setIframes(int iFrames){
+        this->iFrames = iFrames;
+    }
+
+    int getIframes(){
+        return iFrames;
+    }
 private:
     int hp;
     SDL_Rect collider;
@@ -131,6 +145,8 @@ private:
     SDL_Renderer* renderer;
     LTexture texture;
     SDL_Texture* sdltexture;
+    bool isInvis = false;
+    int iFrames = 30;
 };
 
 #endif // PLAYER_HPP

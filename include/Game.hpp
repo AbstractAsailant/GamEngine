@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "LTexture.hpp"
 #include "Enemy.hpp"
+#include "PauseMenu.hpp"
 class Game {
 public:
     Game(Window *window);
@@ -27,12 +28,16 @@ private:
     LTexture* backgroundTexture;
     LTexture* cloudTexture;
     Enemy* enemy;
+    Enemy* secondEnemy;
     int score = 0;
     LTexture* scoreTexture;
     TTF_Font* font = nullptr;
+    LTexture* hpTexture;
     const int FPS = 60;
     const int FRAME_DELAY = 1000 / FPS;
     float deltaTime = 0;
+    bool paused = false;
+    PauseMenu* pMenu;
 };
 
 #endif

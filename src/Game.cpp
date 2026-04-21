@@ -21,19 +21,23 @@ Game::Game(Window *window) {
     groundTexture = new LTexture();
     backgroundTexture = new LTexture();
     cloudTexture = new LTexture();
+    hpTexture = new LTexture();
     // 2. Load the actual image file
     groundTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/groundtilegroup.png", gameWindow->GetRenderer());
     backgroundTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/background.png", gameWindow->GetRenderer());
     cloudTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/clouds.png", gameWindow->GetRenderer());
+    hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp3.png", gameWindow->GetRenderer());
 
     // 3. Create Player (Pass the renderer so it knows how to draw)
-    player = new Player(0, 0, 100, 32, 32, true, 
+    player = new Player(10, 100, 3, 20, 18, true, 
                         Player::PlayerState::Running, 
                         gameWindow->GetRenderer(), 
-                        "/home/marlboro/Desktop/GamEngine/assets/purin");
+                        "/home/marlboro/Desktop/GamEngine/assets/purin.png");
 
 
-    enemy = new Enemy(320, Config::GROUND_HEIGHT-32,32,32,"/home/marlboro/Desktop/GamEngine/assets/pudding.png", gameWindow->GetRenderer());
+    enemy = new Enemy(320, Config::GROUND_HEIGHT-32,24,32,"/home/marlboro/Desktop/GamEngine/assets/pudding.png", gameWindow->GetRenderer());
+    secondEnemy = new Enemy(480, Config::GROUND_HEIGHT-32,24,32,"/home/marlboro/Desktop/GamEngine/assets/pudding.png", gameWindow->GetRenderer());
+    pMenu = new PauseMenu(gameWindow, gameWindow->GetRenderer());
     // 4. Create Ground (Pass the renderer so it knows how to draw) 
 }
 
@@ -45,10 +49,20 @@ void Game::run() {
         int frametime;
         uint32_t lastFrameStart = 0;
         while (isRunning) {
+                
                 frameStart = SDL_GetTicks();
                 deltaTime = (frameStart - lastFrameStart)/1000.0f;
-                std::cout << "Delta Time: " << deltaTime << std::endl;
+                //std::cout << "Delta Time: " << deltaTime << std::endl;
                 lastFrameStart = frameStart;
+                if (secondEnemy->getNextStage() == false && score >= 10 ){
+                    secondEnemy->setNextStage(true);
+                    std::cout << "Setting next stage" << std::endl;
+                    secondEnemy->changeSprite("/home/marlboro/Desktop/GamEngine/assets/biscuit.png");
+                    secondEnemy->setWidth(24);
+                    secondEnemy->setHeight(56);
+                    secondEnemy->setY(secondEnemy->getY()-24);
+                    
+                }
                 update(deltaTime);
                 render();
                 frametime = SDL_GetTicks() - frameStart;
@@ -60,16 +74,95 @@ void Game::run() {
         }
 
 void Game::update(float deltaTime) {
-    if (SDL_HasIntersection(player->getCollider(), enemy->getCollider())) {
+    if (pMenu->isMenuOpen() == true){
+        pMenu->update();
+        return;
+    }
+    if (player->getInvis() == true && player->getIframes() > 0){
+        player->setIframes(player->getIframes()-1);
+    }
+    if (player->getInvis() == true && player->getIframes() <= 0){
+        player->setInvis(false);
+        player->setIframes(30);
+    }
+    if (SDL_HasIntersection(player->getCollider(), enemy->getCollider()) && player->getInvis() == false) {
+        player->setHP(player->getHP() - 1);
+        switch (player->getHP()){
+            case 3:
+                hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp3.png", gameWindow->GetRenderer());
+                break;
+            case 2:
+                hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp2.png", gameWindow->GetRenderer());
+                break;
+            case 1:
+                hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp1.png", gameWindow->GetRenderer());
+                break;
+            default:
+                break;
+        }
+        if (player->getHP() <= 0) {
         isRunning = false;
+        }
+        player->setInvis(true);
         std::cout << "Collision" << std::endl;
         return;
     }
-    enemy->update();
+    if (SDL_HasIntersection(player->getCollider(), secondEnemy->getCollider()) && player->getInvis() == false) {
+        player->setHP(player->getHP() - 1);
+        switch (player->getHP()){
+            case 3:
+                hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp3.png", gameWindow->GetRenderer());
+                break;
+            case 2:
+                hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp2.png", gameWindow->GetRenderer());
+                break;
+            case 1:
+                hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp1.png", gameWindow->GetRenderer());
+                break;
+            default:
+                break;
+        }
+        if (player->getHP() <= 0) {
+        isRunning = false;
+        }
+        player->setInvis(true);
+        std::cout << "Collision" << std::endl;
+        return;
+    }
+    if(enemy->getX() < player->getX() && enemy->isPassed() == false){
+        enemy->setPassed(true);
+        score += 12;
+    }
+    if(secondEnemy->getX() < player->getX() && secondEnemy->isPassed() == false){
+        secondEnemy->setPassed(true);
+        if(secondEnemy->getNextStage() == false){
+        score += 12;
+        }
+        else{
+            score += 24;
+        }
+    }
+    enemy->update(deltaTime);
+    secondEnemy->update(deltaTime);
+    if( std::abs(enemy->getOffsetX() - secondEnemy->getOffsetX()) < 64 || std::abs(secondEnemy->getOffsetX() - enemy->getOffsetX()) < 64){
+        std::cout<<"fixing"<<std::endl;
+        if (enemy->getOffsetX() > secondEnemy->getOffsetX()){
+            enemy->setOffsetX(enemy->getOffsetX() + 128);
+        }
+        else{
+            secondEnemy->setOffsetX(secondEnemy->getOffsetX() + 128);
+        }
+    }
     player->update(deltaTime);
     SDL_Event E;
     while (SDL_PollEvent(&E)) {
         if (E.type == SDL_QUIT) isRunning = false;
+        if (E.type == SDL_KEYDOWN) {
+            if (E.key.keysym.sym == SDLK_p) {
+                pMenu->setIsOpen(!pMenu->isMenuOpen());
+                return;
+            }
+        }
         player->handleInput(E);
     }
    // std::cout << "Updating" << std::endl;
@@ -106,9 +199,19 @@ void Game::render() {
     // Use the LTexture to draw the player at its current X and Y
     player->render();
     enemy->render();
+    secondEnemy->render();
 
     if (scoreTexture != nullptr){
         scoreTexture->Render(220, 0, gameWindow->GetRenderer());
+    }
+    hpTexture->Render(0, 0, gameWindow->GetRenderer());
+
+    if (pMenu != nullptr && pMenu->isMenuOpen()){
+        SDL_SetRenderDrawBlendMode(gameWindow->GetRenderer(), SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(gameWindow->GetRenderer(), 0, 0, 0, 150); // Semi-transparent black
+        SDL_Rect fullScreen = {0, 0, Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT};
+        SDL_RenderFillRect(gameWindow->GetRenderer(), &fullScreen);
+        pMenu->render();
     }
     gameWindow->Present();
    // std::cout << "Rendered" << std::endl;
@@ -121,6 +224,11 @@ Game::~Game() {
     delete backgroundTexture;
     delete cloudTexture;
     delete gameWindow;
+    delete enemy;
+    delete secondEnemy;
+    delete scoreTexture;
+    delete font;
+    TTF_Quit();
 }
 
 void Game::updateScore(){

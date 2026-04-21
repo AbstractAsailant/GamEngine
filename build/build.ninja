@@ -115,6 +115,17 @@ build CMakeFiles/GamEngine.dir/src/MainMenu.cpp.o: CXX_COMPILER__GamEngine_unsca
   TARGET_PDB = GamEngine.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/GamEngine.dir
 
+build CMakeFiles/GamEngine.dir/src/PauseMenu.cpp.o: CXX_COMPILER__GamEngine_unscanned_Debug /home/marlboro/Desktop/GamEngine/src/PauseMenu.cpp || cmake_object_order_depends_target_GamEngine
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles/GamEngine.dir/src/PauseMenu.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2
+  OBJECT_DIR = CMakeFiles/GamEngine.dir
+  OBJECT_FILE_DIR = CMakeFiles/GamEngine.dir/src
+  TARGET_COMPILE_PDB = CMakeFiles/GamEngine.dir/
+  TARGET_PDB = GamEngine.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles/GamEngine.dir
+
 build CMakeFiles/GamEngine.dir/src/Player.cpp.o: CXX_COMPILER__GamEngine_unscanned_Debug /home/marlboro/Desktop/GamEngine/src/Player.cpp || cmake_object_order_depends_target_GamEngine
   CONFIG = Debug
   DEP_FILE = CMakeFiles/GamEngine.dir/src/Player.cpp.o.d
@@ -134,7 +145,7 @@ build CMakeFiles/GamEngine.dir/src/Player.cpp.o: CXX_COMPILER__GamEngine_unscann
 #############################################
 # Link the executable GamEngine
 
-build GamEngine: CXX_EXECUTABLE_LINKER__GamEngine_Debug CMakeFiles/GamEngine.dir/main.cpp.o CMakeFiles/GamEngine.dir/src/Collisions.cpp.o CMakeFiles/GamEngine.dir/src/Enemy.cpp.o CMakeFiles/GamEngine.dir/src/Game.cpp.o CMakeFiles/GamEngine.dir/src/LTexture.cpp.o CMakeFiles/GamEngine.dir/src/MainMenu.cpp.o CMakeFiles/GamEngine.dir/src/Player.cpp.o | /usr/lib/libSDL2-2.0.so.0.3200.64 /usr/lib/libSDL2_image.so /usr/lib/libSDL2_ttf.so
+build GamEngine: CXX_EXECUTABLE_LINKER__GamEngine_Debug CMakeFiles/GamEngine.dir/main.cpp.o CMakeFiles/GamEngine.dir/src/Collisions.cpp.o CMakeFiles/GamEngine.dir/src/Enemy.cpp.o CMakeFiles/GamEngine.dir/src/Game.cpp.o CMakeFiles/GamEngine.dir/src/LTexture.cpp.o CMakeFiles/GamEngine.dir/src/MainMenu.cpp.o CMakeFiles/GamEngine.dir/src/PauseMenu.cpp.o CMakeFiles/GamEngine.dir/src/Player.cpp.o | /usr/lib/libSDL2-2.0.so.0.3200.64 /usr/lib/libSDL2_image.so /usr/lib/libSDL2_ttf.so
   CONFIG = Debug
   DEP_FILE = CMakeFiles/GamEngine.dir/link.d
   FLAGS = -g

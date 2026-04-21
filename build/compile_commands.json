@@ -1,0 +1,44 @@
+[
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/main.cpp.o -c /home/marlboro/Desktop/GamEngine/main.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/main.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/main.cpp.o"
+},
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/Collisions.cpp.o -c /home/marlboro/Desktop/GamEngine/src/Collisions.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/src/Collisions.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/Collisions.cpp.o"
+},
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/Enemy.cpp.o -c /home/marlboro/Desktop/GamEngine/src/Enemy.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/src/Enemy.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/Enemy.cpp.o"
+},
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/Game.cpp.o -c /home/marlboro/Desktop/GamEngine/src/Game.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/src/Game.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/Game.cpp.o"
+},
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/LTexture.cpp.o -c /home/marlboro/Desktop/GamEngine/src/LTexture.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/src/LTexture.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/LTexture.cpp.o"
+},
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/MainMenu.cpp.o -c /home/marlboro/Desktop/GamEngine/src/MainMenu.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/src/MainMenu.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/MainMenu.cpp.o"
+},
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/Player.cpp.o -c /home/marlboro/Desktop/GamEngine/src/Player.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/src/Player.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/Player.cpp.o"
+}
+]

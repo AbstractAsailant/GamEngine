@@ -1,0 +1,3 @@
+/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir
+/home/marlboro/Desktop/GamEngine/build/CMakeFiles/edit_cache.dir
+/home/marlboro/Desktop/GamEngine/build/CMakeFiles/rebuild_cache.dir

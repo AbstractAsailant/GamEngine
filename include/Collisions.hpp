@@ -1,0 +1,5 @@
+#ifndef COLLISIONS_HPP
+#define COLLISIONS_HPP
+
+
+#endif // COLLISIONS_HPP

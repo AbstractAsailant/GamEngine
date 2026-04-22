@@ -74,6 +74,17 @@ public:
     void setNextStage(bool nextStage){
         this->nextStage = nextStage;
     }
+
+    void restart(){
+        setX(0);
+        setY(Config::GROUND_HEIGHT-29);
+        setOffsetX(320);
+        setNextStage(false);
+        setPassed(false);
+        setWidth(32);
+        setHeight(29);
+        texture.LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/pudding.png", renderer);
+    }
 private:
     LTexture texture;
     SDL_Rect clip;

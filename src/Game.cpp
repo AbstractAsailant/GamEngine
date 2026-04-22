@@ -6,9 +6,11 @@
 #include <SDL_timer.h>
 #include <iostream>
 #include <SDL_ttf.h>
+#include <GameOverScreen.hpp>
 Game::Game(Window *window) {
     gameWindow = window;
     isRunning = true;
+    std::cout << "Game Constructor" << std::endl;
     if (TTF_Init() == -1) {
         std::cout << "Failed to init TTF" << std::endl;
     }
@@ -35,9 +37,10 @@ Game::Game(Window *window) {
                         "/home/marlboro/Desktop/GamEngine/assets/purin.png");
 
 
-    enemy = new Enemy(320, Config::GROUND_HEIGHT-32,24,32,"/home/marlboro/Desktop/GamEngine/assets/pudding.png", gameWindow->GetRenderer());
-    secondEnemy = new Enemy(480, Config::GROUND_HEIGHT-32,24,32,"/home/marlboro/Desktop/GamEngine/assets/pudding.png", gameWindow->GetRenderer());
+    enemy = new Enemy(320, Config::GROUND_HEIGHT-29,32,29,"/home/marlboro/Desktop/GamEngine/assets/pudding.png", gameWindow->GetRenderer());         
+    secondEnemy = new Enemy(480, Config::GROUND_HEIGHT-29,32,29,"/home/marlboro/Desktop/GamEngine/assets/pudding.png", gameWindow->GetRenderer());
     pMenu = new PauseMenu(gameWindow, gameWindow->GetRenderer());
+    overScreen = new GameOverScreen(0, 0, Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT, "/home/marlboro/Desktop/GamEngine/assets/playbuttonnotpressed.png", "Game Over", gameWindow->GetRenderer(), &isRunning);
     // 4. Create Ground (Pass the renderer so it knows how to draw) 
 }
 
@@ -54,14 +57,17 @@ void Game::run() {
                 deltaTime = (frameStart - lastFrameStart)/1000.0f;
                 //std::cout << "Delta Time: " << deltaTime << std::endl;
                 lastFrameStart = frameStart;
-                if (secondEnemy->getNextStage() == false && score >= 10 ){
+                if (secondEnemy->getNextStage() == false && score >= 200 && secondEnemy->getX() > 320){
                     secondEnemy->setNextStage(true);
                     std::cout << "Setting next stage" << std::endl;
                     secondEnemy->changeSprite("/home/marlboro/Desktop/GamEngine/assets/biscuit.png");
                     secondEnemy->setWidth(24);
                     secondEnemy->setHeight(56);
-                    secondEnemy->setY(secondEnemy->getY()-24);
+                    secondEnemy->setY(Config::GROUND_HEIGHT-56);
                     
+                }
+                if (isRunning == false){
+                std::cout << "is running is " << isRunning << std::endl;
                 }
                 update(deltaTime);
                 render();
@@ -74,6 +80,13 @@ void Game::run() {
         }
 
 void Game::update(float deltaTime) {
+    if(overScreen->isGameOverScreenOpen() == true){
+        overScreen->update();
+        if(overScreen->isGameOverScreenOpen() == false && isRunning == true){
+            restartGame();
+        }
+        return;
+    }
     if (pMenu->isMenuOpen() == true){
         pMenu->update();
         return;
@@ -98,10 +111,10 @@ void Game::update(float deltaTime) {
                 hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp1.png", gameWindow->GetRenderer());
                 break;
             default:
+            hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp0.png", gameWindow->GetRenderer());
+                overScreen->setIsOpen(true);
+                return;
                 break;
-        }
-        if (player->getHP() <= 0) {
-        isRunning = false;
         }
         player->setInvis(true);
         std::cout << "Collision" << std::endl;
@@ -120,11 +133,12 @@ void Game::update(float deltaTime) {
                 hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp1.png", gameWindow->GetRenderer());
                 break;
             default:
+                hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp0.png", gameWindow->GetRenderer());
+                overScreen->setIsOpen(true);
+                return;
                 break;
         }
-        if (player->getHP() <= 0) {
-        isRunning = false;
-        }
+
         player->setInvis(true);
         std::cout << "Collision" << std::endl;
         return;
@@ -206,12 +220,20 @@ void Game::render() {
     }
     hpTexture->Render(0, 0, gameWindow->GetRenderer());
 
-    if (pMenu != nullptr && pMenu->isMenuOpen()){
+    if (pMenu != nullptr && pMenu->isMenuOpen() && !overScreen->isGameOverScreenOpen()){
         SDL_SetRenderDrawBlendMode(gameWindow->GetRenderer(), SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(gameWindow->GetRenderer(), 0, 0, 0, 150); // Semi-transparent black
         SDL_Rect fullScreen = {0, 0, Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT};
         SDL_RenderFillRect(gameWindow->GetRenderer(), &fullScreen);
         pMenu->render();
+    }
+    if (overScreen != nullptr && overScreen->isGameOverScreenOpen()){
+       // std::cout << "Rendering Game Over" << std::endl;
+        SDL_SetRenderDrawBlendMode(gameWindow->GetRenderer(), SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(gameWindow->GetRenderer(), 0, 0, 0, 150); // Semi-transparent black
+        SDL_Rect fullScreen = {0, 0, Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT};
+        SDL_RenderFillRect(gameWindow->GetRenderer(), &fullScreen);
+        overScreen->render();
     }
     gameWindow->Present();
    // std::cout << "Rendered" << std::endl;
@@ -238,4 +260,16 @@ void Game::updateScore(){
     if (scoreTexture->LoadFromRenderedText(scoreText, font, textColor, gameWindow->GetRenderer())) {
         std::cout << "Score: " << score << std::endl;
     }
+}
+
+void Game::restartGame(){
+    std::cout << "Restarting Game" << std::endl;
+    player->restart();
+    enemy->restart();
+    secondEnemy->restart();
+    hpTexture->LoadFromFile("/home/marlboro/Desktop/GamEngine/assets/hp3.png", gameWindow->GetRenderer());
+    score = 0;
+    float backgroundOffset = 0;
+    float groundOffset = 0;
+    float cloudOffset = 0;
 }

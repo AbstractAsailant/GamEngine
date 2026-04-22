@@ -25,6 +25,12 @@
 },
 {
   "directory": "/home/marlboro/Desktop/GamEngine/build",
+  "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/GameOverScreen.cpp.o -c /home/marlboro/Desktop/GamEngine/src/GameOverScreen.cpp",
+  "file": "/home/marlboro/Desktop/GamEngine/src/GameOverScreen.cpp",
+  "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/GameOverScreen.cpp.o"
+},
+{
+  "directory": "/home/marlboro/Desktop/GamEngine/build",
   "command": "/usr/bin/clang++ -I/home/marlboro/Desktop/GamEngine/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/GamEngine.dir/src/LTexture.cpp.o -c /home/marlboro/Desktop/GamEngine/src/LTexture.cpp",
   "file": "/home/marlboro/Desktop/GamEngine/src/LTexture.cpp",
   "output": "/home/marlboro/Desktop/GamEngine/build/CMakeFiles/GamEngine.dir/src/LTexture.cpp.o"

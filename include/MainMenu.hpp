@@ -8,7 +8,6 @@
 #include "Window.hpp"
 #include <SDL2/SDL.h>
 #include <vector>
-
 class MainMenu {
 public:
     // Pass the renderer from the Game class so we don't crash

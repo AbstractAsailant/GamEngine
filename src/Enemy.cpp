@@ -44,8 +44,8 @@ void Enemy::update(float deltaTime){
 
 void Enemy::render(){
     texture.Render((int)offsetX, getY(), renderer);
-   // SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    //SDL_RenderDrawRect(renderer, &clip);
+   SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_RenderDrawRect(renderer, &clip);
 }
 
 void Enemy::changeSprite(std::string path){

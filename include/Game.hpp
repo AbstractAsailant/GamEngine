@@ -6,6 +6,7 @@
 #include "LTexture.hpp"
 #include "Enemy.hpp"
 #include "PauseMenu.hpp"
+#include "GameOverScreen.hpp"
 class Game {
 public:
     Game(Window *window);
@@ -15,6 +16,13 @@ public:
     void update(float deltaTime);
     void render();
     void updateScore();
+    void restartGame();
+    void setIsRunning(bool isRunning){
+        this->isRunning = isRunning;
+    }
+    bool getIsRunning(){
+        return this->isRunning;
+    }
 
 private:
     float backgroundOffset = 0;
@@ -38,6 +46,7 @@ private:
     float deltaTime = 0;
     bool paused = false;
     PauseMenu* pMenu;
+    GameOverScreen* overScreen;
 };
 
 #endif

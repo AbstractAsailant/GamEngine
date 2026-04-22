@@ -133,6 +133,18 @@ public:
     int getIframes(){
         return iFrames;
     }
+
+    void restart(){
+        setX(0);
+        setY(0);
+        setVelocityX(0);
+        setVelocityY(0);
+        setIsOnGround(false);
+        setInvis(false);
+        setHP(3);
+        setState(PlayerState::Running);
+        setIframes(30);
+    }
 private:
     int hp;
     SDL_Rect collider;
